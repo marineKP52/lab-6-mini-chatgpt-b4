@@ -1,4 +1,6 @@
-﻿public class PerplexityCalculator
+﻿using Lib.MathCore;
+
+public class PerplexityCalculator
 {
     public float ComputePerplexityBigram(NGramModel model, ReadOnlySpan<int> tokens)
     {
@@ -7,7 +9,7 @@
             return float.PositiveInfinity;
         }
 
-        double logSum = 0;
+        double lossSum = 0;
         int count = 0;
 
         for (int i = 1; i < tokens.Length; i++)
@@ -15,19 +17,20 @@
             int[] context = { tokens[i - 1] };
             float[] probs = model.NextTokenScores(context);
 
-            float prob = probs[tokens[i]];
-
-            if (prob <= 0)
+            float[] logits = new float[probs.Length];
+            for (int j = 0; j < probs.Length; j++)
             {
-                prob = 0.0000000001f;
+                logits[j] = MathF.Log(probs[j] + 1e-9f);
             }
 
-            logSum += Math.Log(prob);
+            float loss = LossCalculator.CrossEntropyLoss(logits, tokens[i]);
+
+            lossSum += loss;
             count++;
         }
 
-        double average = logSum / count;
-        return (float)Math.Exp(-average);
+        double averageLoss = lossSum / count;
+        return (float)Math.Exp(averageLoss);
     }
 
 
@@ -38,7 +41,7 @@
             return float.PositiveInfinity;
         }
 
-        double logSum = 0;
+        double lossSum = 0;
         int count = 0;
 
         for (int i = 1; i < tokens.Length; i++)
@@ -56,18 +59,19 @@
                 probs = model.bigramModel.NextTokenScores(context);
             }
 
-            float prob = probs[tokens[i]];
-
-            if (prob <= 0)
+            float[] logits = new float[probs.Length];
+            for (int j = 0; j < probs.Length; j++)
             {
-                prob = 0.0000000001f;
+                logits[j] = MathF.Log(probs[j] + 1e-9f);
             }
 
-            logSum += Math.Log(prob);
+            float loss = LossCalculator.CrossEntropyLoss(logits, tokens[i]);
+
+            lossSum += loss;
             count++;
         }
 
-        double average = logSum / count;
-        return (float)Math.Exp(-average);
+        double averageLoss = lossSum / count;
+        return (float)Math.Exp(averageLoss);
     }
 }

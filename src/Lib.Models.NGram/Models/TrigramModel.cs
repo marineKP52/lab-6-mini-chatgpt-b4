@@ -156,7 +156,6 @@ public class TrigramModel : ILanguageModel
 
         if (!isNull)
         {
-            //float[] probs = _trigramProbs[(beforeLastToken, lastToken)];
             float[] logits = new float[VocabSize];
 
             for (int i = 0; i < VocabSize; i++)
@@ -165,7 +164,6 @@ public class TrigramModel : ILanguageModel
             }
 
             return SoftmaxCalculator.Softmax(logits);
-           // return (float[])_trigramProbs[(beforeLastToken, lastToken)].Clone();
         }
 
         return bigramModel.NextTokenScores(context);
