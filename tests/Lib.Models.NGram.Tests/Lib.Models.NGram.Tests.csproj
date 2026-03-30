@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Lib.Models.NGram\Lib.Models.NGram.csproj" />
+    <ProjectReference Include="..\..\src\Lib.Models.NGram\Lib.Models.NGram.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using Lib.MathCore;
+using System.Text.Json;
 
 public class NGramModel : ILanguageModel
 {
@@ -131,7 +132,12 @@ public class NGramModel : ILanguageModel
 
         if (!isNull)
         {
-            return (float[])_probs[lastToken].Clone();
+            float[] logits = new float[VocabSize];
+            for (int i = 0; i < VocabSize; i++)
+            {
+                logits[i] = MathF.Log(_probs[lastToken][i] + 1e-9f);
+            }
+            return SoftmaxCalculator.Softmax(logits);
         }
 
         return alternative;

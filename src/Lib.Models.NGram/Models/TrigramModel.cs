@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using Lib.MathCore;
+using System.Text.Json;
 
 public class TrigramModel : ILanguageModel
 {
@@ -155,7 +156,16 @@ public class TrigramModel : ILanguageModel
 
         if (!isNull)
         {
-            return (float[])_trigramProbs[(beforeLastToken, lastToken)].Clone();
+            //float[] probs = _trigramProbs[(beforeLastToken, lastToken)];
+            float[] logits = new float[VocabSize];
+
+            for (int i = 0; i < VocabSize; i++)
+            {
+                logits[i] = MathF.Log(_trigramProbs[(beforeLastToken, lastToken)][i] + 1e-9f);
+            }
+
+            return SoftmaxCalculator.Softmax(logits);
+           // return (float[])_trigramProbs[(beforeLastToken, lastToken)].Clone();
         }
 
         return bigramModel.NextTokenScores(context);
