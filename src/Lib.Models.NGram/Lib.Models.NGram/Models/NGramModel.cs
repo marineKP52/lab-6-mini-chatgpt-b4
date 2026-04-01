@@ -1,7 +1,7 @@
 ﻿using MiniChatGPT.Contracts;
 using System.Text.Json;
 
-public class NGramModel : ILanguageModel
+public class NGramModel : ILanguageModel, INGramModel
 {
     public float[][] _probs; 
     public int VocabSize { get; set; }
