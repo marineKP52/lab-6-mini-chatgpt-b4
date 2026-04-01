@@ -5,7 +5,7 @@
     {
         // Arrange
         NGramModel model = new NGramModel(4);
-        int[] tokens = { 2, 3, 0, 3, 1, 2, 0, 2, 3, 1};
+        int[] tokens = { 3, 4, 1, 4, 2, 3, 1, 3, 4, 2};
 
         // Act
         model.Train(tokens);
@@ -59,7 +59,7 @@
     {
         // Arrange
         NGramModel model = new NGramModel(3);
-        int[] tokens = { 1, 0, 2, 1, 3, 2 };
+        int[] tokens = { 2, 1, 3, 2, 4, 3 };
 
         // Act + Assert
         Assert.Throws<ArgumentOutOfRangeException>(() => model.Train(tokens));
@@ -70,10 +70,10 @@
     {
         // Arrange
         NGramModel model = new NGramModel(4);
-        int[] tokens = { 2, 3, 0, 3, 1, 2, 0, 2, 3, 1 };
+        int[] tokens = { 3, 4, 1, 4, 2, 3, 1, 3, 4, 2 };
         model.Train(tokens);
 
-        int[] context = { 2, 3 };
+        int[] context = { 3, 4 };
 
         // Act
         float[] resultProbs = model.NextTokenScores(context);
@@ -90,7 +90,7 @@
     {
         // Arrange
         NGramModel model = new NGramModel(4);
-        int[] tokens = { 2, 3, 0, 3, 1, 2, 0, 2, 3, 1 };
+        int[] tokens = { 3, 4, 1, 4, 2, 3, 1, 3, 4, 2 };
         model.Train(tokens);
 
         int[] context = { };
@@ -110,10 +110,10 @@
     {
         // Arrange
         NGramModel model = new NGramModel(4);
-        int[] tokens = { 2, 3, 0, 3, 1, 2, 0, 2, 3, 1 };
+        int[] tokens = { 3, 4, 1, 4, 2, 3, 1, 3, 4, 2 };
         model.Train(tokens);
 
-        int[] context = { 1, 0, 4 };
+        int[] context = { 2, 1, 5 };
 
         // Act
         float[] resultProbs = model.NextTokenScores(context);

@@ -22,7 +22,7 @@ public class NGramModel : ILanguageModel
 
     public string GetContractFingerprint()
     {
-        return $"V1_{ModelKind}:vocabSize={VocabSize}";
+        return $"Lib.Models.NGram:1.0.0:NGramModel,TrigramModel,NGramModelFactory";
     }
 
     public override bool Equals(object? obj)
@@ -112,7 +112,7 @@ public class NGramModel : ILanguageModel
             return alternative;
         }
 
-        int lastToken = context[context.Length - 1];       
+        int lastToken = context[context.Length - 1] - 1;       
 
         if (lastToken < 0 || lastToken >= VocabSize)
         {

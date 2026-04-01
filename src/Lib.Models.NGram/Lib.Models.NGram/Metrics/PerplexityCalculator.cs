@@ -15,7 +15,7 @@
             int[] context = { tokens[i - 1] };
             float[] probs = model.NextTokenScores(context);
 
-            float prob = probs[tokens[i]];
+            float prob = probs[tokens[i] - 1];
 
             if (prob <= 0)
             {
@@ -56,7 +56,7 @@
                 probs = model.bigramModel.NextTokenScores(context);
             }
 
-            float prob = probs[tokens[i]];
+            float prob = probs[tokens[i] - 1];
 
             if (prob <= 0)
             {

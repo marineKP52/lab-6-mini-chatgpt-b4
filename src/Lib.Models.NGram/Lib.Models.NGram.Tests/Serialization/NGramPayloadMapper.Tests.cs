@@ -7,8 +7,8 @@ public class NGramPayloadMapperTests
     {
         // Arrange
         NGramModel model = new NGramModel(4);
-        int[] tokens = { 2, 3, 0, 3, 1, 2, 0, 2, 3, 1 };
-        int[] context = { 0, 3 };
+        int[] tokens = { 3, 4, 1, 4, 2, 3, 1, 3, 4, 2 };
+        int[] context = { 1, 4 };
 
         model.Train(tokens);
         float[] beforeSerialization = model.NextTokenScores(context);
@@ -33,8 +33,8 @@ public class NGramPayloadMapperTests
     {
         // Arrange
         TrigramModel model = new TrigramModel(3);
-        int[] tokens = { 2, 1, 0, 1, 0, 2, 1, 0, 1, 2, 1, 2, 0, 2, 1, 1 };
-        int[] context = { 0, 2, 2, 1 };
+        int[] tokens = { 3, 2, 1, 2, 1, 3, 2, 1, 2, 3, 2, 3, 1, 3, 2, 2 };
+        int[] context = { 1, 3, 3, 2 };
 
         model.Train(tokens);
         float[] beforeSerialization = model.NextTokenScores(context);
@@ -58,8 +58,8 @@ public class NGramPayloadMapperTests
     {
         // Arrange
         TrigramModel model = new TrigramModel(3);
-        int[] tokens = { 2, 1, 0, 1, 0, 2, 1, 0, 1, 2, 1, 2, 0, 2, 1, 1 };
-        int[] context = { 0 };
+        int[] tokens = { 3, 2, 1, 2, 1, 3, 2, 1, 2, 3, 2, 3, 1, 3, 2, 2 };
+        int[] context = { 1 };
 
         model.Train(tokens);
         float[] beforeSerialization = model.NextTokenScores(context);

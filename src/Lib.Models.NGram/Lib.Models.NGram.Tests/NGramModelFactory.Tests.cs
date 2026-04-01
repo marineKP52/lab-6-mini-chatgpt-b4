@@ -1,4 +1,6 @@
-﻿public class NGramModelFactoryTests
+﻿using MiniChatGPT.Contracts;
+
+public class NGramModelFactoryTests
 {
     [Test]
     public void Create_Bigram()

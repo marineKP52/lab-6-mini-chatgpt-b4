@@ -36,10 +36,10 @@
         // Arrange
         PerplexityCalculator calculator = new PerplexityCalculator();
         NGramModel model = new NGramModel(3);
-        int[] tokens = { 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 2 };
+        int[] tokens = { 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 3 };
         model.Train(tokens);
 
-        tokens = new int[] { 1, 2}; 
+        tokens = new int[] { 2, 3}; 
 
         // Act
         float result = calculator.ComputePerplexityBigram(model, tokens);
@@ -54,10 +54,10 @@
         // Arrange
         PerplexityCalculator calculator = new PerplexityCalculator();
         TrigramModel model = new TrigramModel(4);
-        int[] tokens = { 1, 3, 0, 1, 3, 1, 0 , 3, 0, 3, 2};
+        int[] tokens = { 2, 4, 1, 2, 4, 2, 1, 4, 1, 4, 3};
         model.Train(tokens);
 
-        tokens = new int[] { 3, 2 };
+        tokens = new int[] { 4, 3 };
 
         // Act
         float result = calculator.ComputePerplexityTrigram(model, tokens);

@@ -5,7 +5,7 @@
     {
         // Arrange
         TrigramModel model = new TrigramModel(3);
-        int[] tokens = { 2, 1, 0, 1, 0, 2, 1, 0, 1, 2 };
+        int[] tokens = { 3, 2, 1, 2, 1, 3, 2, 1, 2, 3 };
 
         // Act
         model.Train(tokens);
@@ -52,7 +52,7 @@
     {
         // Arrange
         TrigramModel model = new TrigramModel(3);
-        int[] tokens = { 2, 0 };
+        int[] tokens = { 3, 1 };
 
         // Act
         model.Train(tokens);
@@ -72,7 +72,7 @@
     {
         // Arrange
         TrigramModel model = new TrigramModel(4);
-        int[] tokens = { 1, 0, 2, 1, 3, 2, 4, 2, 1};
+        int[] tokens = { 2, 1, 3, 2, 4, 3, 5, 3, 2};
 
         // Act + Assert
         Assert.Throws<ArgumentOutOfRangeException>(() => model.Train(tokens));
@@ -83,10 +83,10 @@
     {
         // Arrange
         TrigramModel model = new TrigramModel(3);
-        int[] tokens = { 2, 1, 0, 1, 0, 2, 1, 0, 1, 2 };
+        int[] tokens = { 3, 2, 1, 2, 1, 3, 2, 1, 2, 3 };
         model.Train(tokens);
 
-        int[] context = { 0, 2, 1, 0 };
+        int[] context = { 1, 3, 2, 1 };
 
         // Act
         float[] resultProbs = model.NextTokenScores(context);
@@ -102,10 +102,10 @@
     {
         // Arrange
         TrigramModel model = new TrigramModel(4);
-        int[] tokens = { 2, 1, 0, 1, 0, 2, 1, 0, 1, 2, 3 };
+        int[] tokens = { 3, 2, 1, 2, 1, 3, 2, 1, 2, 3, 4 };
         model.Train(tokens);
 
-        int[] context = { 2, 3 };
+        int[] context = { 3, 4 };
 
         // Act
         float[] resultProbs = model.NextTokenScores(context);
@@ -122,10 +122,10 @@
     {
         // Arrange
         TrigramModel model = new TrigramModel(4);
-        int[] tokens = { 2, 1, 0, 1, 0, 2, 1, 0, 1, 2 };
+        int[] tokens = { 3, 2, 1, 2, 1, 3, 2, 1, 2, 3 };
         model.Train(tokens);
 
-        int[] context = { 2, 3 };
+        int[] context = { 3, 4 };
 
         // Act
         float[] resultProbs = model.NextTokenScores(context);
@@ -142,10 +142,10 @@
     {
         // Arrange
         TrigramModel model = new TrigramModel(3);
-        int[] tokens = { 2, 1, 0, 1, 0, 2, 1, 0, 1, 2 };
+        int[] tokens = { 3, 2, 1, 2, 1, 3, 2, 1, 2, 3 };
         model.Train(tokens);
 
-        int[] context = { 1, 1 };
+        int[] context = { 2, 2 };
 
         // Act
         float[] resultProbs = model.NextTokenScores(context);
