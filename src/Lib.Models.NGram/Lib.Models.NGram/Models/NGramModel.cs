@@ -22,7 +22,7 @@ public class NGramModel : ILanguageModel
 
     public string GetContractFingerprint()
     {
-        return $"V1_{ModelKind}:vocabSize={VocabSize}";
+        return $"Lib.Models.NGram:1.0.0:NGramModel,TrigramModel,NGramModelFactory";
     }
 
     public override bool Equals(object? obj)
