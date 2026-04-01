@@ -112,7 +112,7 @@ public class NGramModel : ILanguageModel
             return alternative;
         }
 
-        int lastToken = context[context.Length - 1];       
+        int lastToken = context[context.Length - 1] - 1;       
 
         if (lastToken < 0 || lastToken >= VocabSize)
         {

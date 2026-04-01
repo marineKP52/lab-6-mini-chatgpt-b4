@@ -134,8 +134,8 @@ public class TrigramModel : ILanguageModel
             return bigramModel.NextTokenScores(context);
         }
 
-        int lastToken = context[context.Length - 1];
-        int beforeLastToken = context[context.Length - 2];
+        int lastToken = context[context.Length - 1] - 1;
+        int beforeLastToken = context[context.Length - 2] - 1;
 
         if (lastToken < 0 || lastToken >= VocabSize
             || beforeLastToken < 0 || beforeLastToken >= VocabSize)

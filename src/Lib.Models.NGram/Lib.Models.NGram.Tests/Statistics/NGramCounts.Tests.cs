@@ -12,7 +12,7 @@
             new float[3]
         };
 
-        int[] tokens = { 0, 1, 1, 2, 0, 1, 2, 1, 2, 0, 1 };
+        int[] tokens = { 1, 2, 2, 3, 1, 2, 3, 2, 3, 1, 2 };
 
         // Act
         counts.CountBigrams(probs, tokens);
@@ -41,7 +41,7 @@
             new float[3]
         };
 
-        int[] tokens = { 0, 1, 1, 3, 0, 1, 2, 1, 2, 0, 1 };
+        int[] tokens = { 3, 1, 0, 2, 2, 1, 3, 1, 2, 2, 1 };
 
         // Act + Assert
         Assert.Throws<ArgumentOutOfRangeException>(() => counts.CountBigrams(probs, tokens));       
@@ -59,7 +59,7 @@
             new float[3]
         };
 
-        int[] tokens = { 0, -1, 1, 0, 0, 1, 2, 1, 2, 0, 1 };
+        int[] tokens = { 1, -1, 2, 1, 1, 2, 3, 2, 3, 1, 2 };
 
         // Act + Assert
         Assert.Throws<ArgumentOutOfRangeException>(() => counts.CountBigrams(probs, tokens));
@@ -81,7 +81,7 @@
         probs[(2, 1)] = new float[3];
         probs[(2, 2)] = new float[3];
 
-        int[] tokens = { 2, 1, 0, 1, 0, 2, 1, 0, 1, 2 };
+        int[] tokens = { 3, 2, 1, 2, 1, 3, 2, 1, 2, 3 };
 
         // Act
         counts.CountTrigrams(probs, tokens);
@@ -115,7 +115,7 @@
         probs[(2, 1)] = new float[3];
         probs[(2, 2)] = new float[3];
 
-        int[] tokens = { 0, 1, 1, 3, 0, 1, 2, 1, 2, 0, 1, 2 };
+        int[] tokens = { 1, 2, 2, 4, 1, 2, 3, 2, 3, 1, 2, 3 };
 
         // Act + Assert
         Assert.Throws<ArgumentOutOfRangeException>(() => counts.CountTrigrams(probs, tokens));
