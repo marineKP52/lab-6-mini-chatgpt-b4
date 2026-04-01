@@ -1,7 +1,7 @@
 ﻿using MiniChatGPT.Contracts;
 using System.Text.Json;
 
-public class TrigramModel : ILanguageModel
+public class TrigramModel : ILanguageModel, INGramModel
 {
     public Dictionary<(int, int), float[]> _trigramProbs = new Dictionary<(int, int), float[]>();
     public NGramModel bigramModel;
