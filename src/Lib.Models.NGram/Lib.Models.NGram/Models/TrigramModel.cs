@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using MiniChatGPT.Contracts;
+using System.Text.Json;
 
 public class TrigramModel : ILanguageModel
 {
@@ -167,7 +168,7 @@ public class TrigramModel : ILanguageModel
         mapper.FromJsonElementToTrigram(json, this);
     }
 
-    public JsonElement GetPayloadForCheckpoint()
+    public object GetPayloadForCheckpoint()
     {
         NGramPayloadMapper mapper = new NGramPayloadMapper();
         return mapper.FromTrigramToJson(this);

@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using MiniChatGPT.Contracts;
+using System.Text.Json;
 
 public class NGramModel : ILanguageModel
 {
@@ -143,7 +144,7 @@ public class NGramModel : ILanguageModel
         mapper.FromJsonElementToBigram(json, this);
     }
 
-    public JsonElement GetPayloadForCheckpoint()
+    public object GetPayloadForCheckpoint()
     {
         NGramPayloadMapper mapper = new NGramPayloadMapper();      
         return mapper.FromBigramToJson(this);

@@ -1,4 +1,6 @@
-﻿public class NGramModelFactory : INGramModelFactory
+﻿using MiniChatGPT.Contracts;
+
+public class NGramModelFactory : INGramModelFactory
 {
     public ILanguageModel Create(string modelType, int vocabSize)
     {
