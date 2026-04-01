@@ -15,7 +15,11 @@
             int[] context = { tokens[i - 1] };
             float[] probs = model.NextTokenScores(context);
 
-            float prob = probs[tokens[i] - 1];
+            float prob = -1;
+            if (tokens[i] - 1 >= 0 && tokens[i] - 1 <= model.VocabSize)
+            {
+                prob = probs[tokens[i] - 1];
+            }            
 
             if (prob <= 0)
             {
@@ -56,7 +60,11 @@
                 probs = model.bigramModel.NextTokenScores(context);
             }
 
-            float prob = probs[tokens[i] - 1];
+            float prob = -1;
+            if (tokens[i] - 1 >= 0 && tokens[i] - 1 <= model.VocabSize)
+            {
+                prob = probs[tokens[i] - 1];
+            }               
 
             if (prob <= 0)
             {

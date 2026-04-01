@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11626.88 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Models.NGram", "Lib.Models.NGram\Lib.Models.NGram\Lib.Models.NGram.csproj", "{1381FF8C-8C97-0359-6186-D48B5DD595AD}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Tokenization", "Lib.Tokenization\Lib.Tokenization\Lib.Tokenization.csproj", "{A26F787F-311A-097A-56C7-7478C0826C76}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Tokenization.Tests", "Lib.Tokenization\Lib.Tokenization.Tests\Lib.Tokenization.Tests.csproj", "{B9467908-18E7-D11E-DF6A-24D447EA7C2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integration.BaselineEndToEnd", "Integration.BaselineEndToEnd\Integration.BaselineEndToEnd.csproj", "{B6800260-BA3C-4CD3-B871-BE2A5942EB80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{B9467908-18E7-D11E-DF6A-24D447EA7C2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9467908-18E7-D11E-DF6A-24D447EA7C2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9467908-18E7-D11E-DF6A-24D447EA7C2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6800260-BA3C-4CD3-B871-BE2A5942EB80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6800260-BA3C-4CD3-B871-BE2A5942EB80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6800260-BA3C-4CD3-B871-BE2A5942EB80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6800260-BA3C-4CD3-B871-BE2A5942EB80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
