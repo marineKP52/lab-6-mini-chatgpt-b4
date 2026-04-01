@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Models.NGram", "Lib.Models.NGram\Lib.Models.NGram\Lib.Models.NGram.csproj", "{1381FF8C-8C97-0359-6186-D48B5DD595AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{04F23011-7750-0C6B-2028-A3BB3658D0E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Corpus", "Lib.Corpus\Lib.Corpus\Lib.Corpus.csproj", "{21681A4C-402E-41F7-F659-CB2414866803}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Corpus.Tests", "Lib.Corpus\Lib.Corpus.Tests\Lib.Corpus.Tests.csproj", "{0FC7224C-0DBB-1AF4-969A-F4D094D52255}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Models.NGram.Tests", "Lib.Models.NGram\Lib.Models.NGram.Tests\Lib.Models.NGram.Tests.csproj", "{1FD43A83-D8CC-A03E-B77F-2E3D69A3164D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Tokenization", "Lib.Tokenization\Lib.Tokenization\Lib.Tokenization.csproj", "{A26F787F-311A-097A-56C7-7478C0826C76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Tokenization.Tests", "Lib.Tokenization\Lib.Tokenization.Tests\Lib.Tokenization.Tests.csproj", "{B9467908-18E7-D11E-DF6A-24D447EA7C2F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1381FF8C-8C97-0359-6186-D48B5DD595AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1381FF8C-8C97-0359-6186-D48B5DD595AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1381FF8C-8C97-0359-6186-D48B5DD595AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1381FF8C-8C97-0359-6186-D48B5DD595AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04F23011-7750-0C6B-2028-A3BB3658D0E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04F23011-7750-0C6B-2028-A3BB3658D0E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04F23011-7750-0C6B-2028-A3BB3658D0E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04F23011-7750-0C6B-2028-A3BB3658D0E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21681A4C-402E-41F7-F659-CB2414866803}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21681A4C-402E-41F7-F659-CB2414866803}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21681A4C-402E-41F7-F659-CB2414866803}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21681A4C-402E-41F7-F659-CB2414866803}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FC7224C-0DBB-1AF4-969A-F4D094D52255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FC7224C-0DBB-1AF4-969A-F4D094D52255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FC7224C-0DBB-1AF4-969A-F4D094D52255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FC7224C-0DBB-1AF4-969A-F4D094D52255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FD43A83-D8CC-A03E-B77F-2E3D69A3164D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FD43A83-D8CC-A03E-B77F-2E3D69A3164D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FD43A83-D8CC-A03E-B77F-2E3D69A3164D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FD43A83-D8CC-A03E-B77F-2E3D69A3164D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A26F787F-311A-097A-56C7-7478C0826C76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A26F787F-311A-097A-56C7-7478C0826C76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A26F787F-311A-097A-56C7-7478C0826C76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A26F787F-311A-097A-56C7-7478C0826C76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9467908-18E7-D11E-DF6A-24D447EA7C2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9467908-18E7-D11E-DF6A-24D447EA7C2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9467908-18E7-D11E-DF6A-24D447EA7C2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9467908-18E7-D11E-DF6A-24D447EA7C2F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9574B83A-8464-43C0-B779-3D86960AA3D9}
+	EndGlobalSection
+EndGlobal
