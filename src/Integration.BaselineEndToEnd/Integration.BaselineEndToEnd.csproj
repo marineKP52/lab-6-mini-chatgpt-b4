@@ -17,6 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\Lib.Corpus\Lib.Corpus\Lib.Corpus.csproj" />
+    <ProjectReference Include="..\Lib.Models.NGram\Lib.Models.NGram\Lib.Models.NGram.csproj" />
+    <ProjectReference Include="..\Lib.Tokenization\Lib.Tokenization\Lib.Tokenization.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
