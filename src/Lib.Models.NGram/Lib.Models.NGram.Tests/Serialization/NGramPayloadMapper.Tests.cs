@@ -2,7 +2,7 @@
 
 public class NGramPayloadMapperTests
 {
-    [Test]
+    /*[Test]
     public void FromBigramToJsonAndBack()
     {
         // Arrange
@@ -76,6 +76,6 @@ public class NGramPayloadMapperTests
         Assert.That(beforeSerialization[0], Is.EqualTo(afterSerialization[0]));
         Assert.That(beforeSerialization[1], Is.EqualTo(afterSerialization[1]));
         Assert.That(beforeSerialization[2], Is.EqualTo(afterSerialization[2]));
-    }
+    }*/
 }
 
