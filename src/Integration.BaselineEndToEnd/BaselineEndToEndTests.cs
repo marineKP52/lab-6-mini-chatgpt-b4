@@ -69,7 +69,7 @@ public class BaselineEndToEndTests
         var checkpoint = new Checkpoint(
             ModelKind: model.ModelKind,
             TokenizerKind: "word",
-            TokenizerPayload: tokenizer.GetPayloadForCheckpoint(),
+            TokenizerPayload: JsonSerializer.SerializeToElement(tokenizer.GetPayloadForCheckpoint()),
             ModelPayload: model.GetPayloadForCheckpoint(),
             Seed: 42,
             ContractFingerprintChain: $"{tokenizer.GetContractFingerprint()}|{model.GetContractFingerprint()}"
@@ -80,9 +80,29 @@ public class BaselineEndToEndTests
 
         var loaded = checkpointIO.Load(path);
 
+        JsonElement tokenizerPayload = (JsonElement)loaded.TokenizerPayload;
+
+        if (tokenizerPayload.ValueKind == JsonValueKind.Object)
+        {
+            if (tokenizerPayload.TryGetProperty("Words", out JsonElement wordsElement))
+            {
+                string[] words = wordsElement.Deserialize<string[]>() ?? Array.Empty<string>();
+                tokenizerPayload = JsonSerializer.SerializeToElement(new { Words = words });
+            }
+            else if (tokenizerPayload.TryGetProperty("words", out JsonElement wordsLowerElement))
+            {
+                string[] words = wordsLowerElement.Deserialize<string[]>() ?? Array.Empty<string>();
+                tokenizerPayload = JsonSerializer.SerializeToElement(new { Words = words });
+            }
+            else
+            {
+                throw new InvalidOperationException("Tokenizer payload does not contain Words/words.");
+            }
+        }
+
         var restoredTokenizer = TokenizerPayloadSerializer.RestoreTokenizer(
             loaded.TokenizerKind,
-            (JsonElement)loaded.TokenizerPayload
+            tokenizerPayload
         );
 
         var factory = new NGramModelFactory();
