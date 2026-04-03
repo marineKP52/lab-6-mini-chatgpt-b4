@@ -4,12 +4,17 @@ public class NGramModelFactory : INGramModelFactory
 {
     public ILanguageModel Create(string modelType, int vocabSize)
     {
-        if (modelType == "bigram")
+        if (string.IsNullOrWhiteSpace(modelType))
+        {
+            throw new ArgumentException("Model type cannot be empty.", nameof(modelType));
+        }
+
+        if (modelType.Equals("bigram", StringComparison.OrdinalIgnoreCase))
         {
             return new NGramModel(vocabSize);
         }
 
-        if (modelType == "trigram")
+        if (modelType.Equals("trigram", StringComparison.OrdinalIgnoreCase))
         {
             return new TrigramModel(vocabSize);
         }
