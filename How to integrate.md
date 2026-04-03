@@ -43,6 +43,74 @@ string text = tokenizer.Decode(context.ToArray());
 |NGram/Trigram|dddd|
 
 ## Формат checkpoint для bigram та trigram
+### Що таке Checkpoint
+
+**Checkpoint** — це JSON-файл, який зберігає:
+
+- тип моделі (**bigram / trigram**)
+- токенізатор (**word / char**)
+- словник токенів
+- ваги моделі
+
+Після завантаження checkpoint-а модель повинна генерувати **той самий результат**, що і до збереження.
+
+### Структура Checkpoint
+
+```json
+{
+  "ModelKind": "trigram",
+  "TokenizerKind": "word",
+  "TokenizerPayload": {
+    "Words": [null, "калина", "похилилася", "журиться"]
+  },
+  "ModelPayload": {
+    "modelKind": "trigram",
+    "modelPayload": {
+      "bigramProbs": [...],
+      "trigramProbs": {
+        "1, 2": [...]
+      }
+    }
+  },
+  "Seed": 42,
+  "ContractFingerprintChain": "..."
+}
+```
+### Bigram
+- bigramProbs — матриця float[vocabSize][vocabSize]
+- кожен рядок = ймовірності наступного токена
+```
+"bigramProbs": [
+  [0.0, 0.5, 0.5],
+  ...
+]
+```
+### Trigram
+- trigramProbs — словник
+- ключ: "prev2, prev1" (рядок!)
+- значення: масив ймовірностей
+```
+"trigramProbs": {
+  "1, 2": [0.0, 0.0, 1.0],
+  "2, 3": [0.0, 1.0, 0.0]
+}
+```
+Ключ зберігається як рядок, бо (int,int) не підтримується в JSON.
+
+### Важливі нюанси
+
+- TokenizerPayload містить словник (Words або Chars)
+- Words[0] = null → це <UNK>
+- після Load() payload приходить як object, потрібно кастити до JsonElement
+- trigram використовує bigram як fallback
+
+### Гарантія коректності
+Правильна реалізація checkpoint-а перевіряється так:
+1. згенерувати текст
+2. зберегти checkpoint
+3. завантажти checkpoint
+4. згенерувати ще раз
+→ результати мають бути однакові
 
 ## Як побудувати greedy generation loop для Chat?
 Greedy generation - 
@@ -100,3 +168,4 @@ CharTokenizer варто використовувати:
 
 якщо важлива гнучкість
 або для експериментів
+
