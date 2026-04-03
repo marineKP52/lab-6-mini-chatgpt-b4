@@ -12,14 +12,21 @@
 
         for (int i = 1; i < tokens.Length; i++)
         {
+            int target = tokens[i];
+
+            if (target == 0)
+            {
+                continue;
+            }
+
             int[] context = { tokens[i - 1] };
             float[] probs = model.NextTokenScores(context);
 
-            float prob = -1;
-            if (tokens[i] - 1 >= 0 && tokens[i] - 1 <= model.VocabSize)
+            float prob = 0;
+            if (target >= 0 && target < probs.Length)
             {
-                prob = probs[tokens[i] - 1];
-            }            
+                prob = probs[target];
+            }
 
             if (prob <= 0)
             {
@@ -29,7 +36,10 @@
             logSum += Math.Log(prob);
             count++;
         }
-
+        if (count == 0)
+        {
+            return float.PositiveInfinity;
+        }
         double average = logSum / count;
         return (float)Math.Exp(-average);
     }
@@ -47,6 +57,13 @@
 
         for (int i = 1; i < tokens.Length; i++)
         {
+            int target = tokens[i];
+
+            if (target == 0)
+            {
+                continue;
+            }
+
             float[] probs;
 
             if (i >= 2)
@@ -60,12 +77,12 @@
                 probs = model.bigramModel.NextTokenScores(context);
             }
 
-            float prob = -1;
-            if (tokens[i] - 1 >= 0 && tokens[i] - 1 <= model.VocabSize)
-            {
-                prob = probs[tokens[i] - 1];
-            }               
+            float prob = 0;
 
+            if (target >= 0 && target < probs.Length)
+            {
+                prob = probs[target];
+            }
             if (prob <= 0)
             {
                 prob = 0.0000000001f;
@@ -73,6 +90,10 @@
 
             logSum += Math.Log(prob);
             count++;
+        }
+        if (count == 0)
+        {
+            return float.PositiveInfinity;
         }
 
         double average = logSum / count;

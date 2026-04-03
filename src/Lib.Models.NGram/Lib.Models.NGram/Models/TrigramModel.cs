@@ -3,6 +3,9 @@ using System.Text.Json;
 
 public class TrigramModel : ILanguageModel, INGramModel
 {
+    private const int UnknownTokenId = 0;
+    private const float ComparisonEpsilon = 0.000001f;
+
     public Dictionary<(int, int), float[]> _trigramProbs = new Dictionary<(int, int), float[]>();
     public NGramModel bigramModel;
     private NGramCounts counts = new NGramCounts();
@@ -16,13 +19,7 @@ public class TrigramModel : ILanguageModel, INGramModel
         bigramModel = new NGramModel(VocabSize);
         ModelKind = "trigram";
 
-        for (int i = 0; i < vocabSize; i++)
-        {
-            for (int j = 0; j < vocabSize; j++)
-            {
-                _trigramProbs.Add((i, j), new float[vocabSize]);
-            }
-        }
+        _trigramProbs = CreateEmptyTrigramDictionary(VocabSize);
     }
 
     public string GetContractFingerprint()
@@ -42,18 +39,23 @@ public class TrigramModel : ILanguageModel, INGramModel
             return false;
         }
 
-        if (model.ModelKind != this.ModelKind 
-            || model.VocabSize != this.VocabSize 
-            || !model.bigramModel.Equals(this.bigramModel))
+        if (model.ModelKind != ModelKind ||
+            model.VocabSize != VocabSize ||
+            !model.bigramModel.Equals(bigramModel))
         {
             return false;
         }
 
         foreach (var pair in _trigramProbs)
         {
+            if (!model._trigramProbs.TryGetValue(pair.Key, out float[]? otherRow))
+            {
+                return false;
+            }
+
             for (int i = 0; i < VocabSize; i++)
             {
-                if (model._trigramProbs[pair.Key][i] != this._trigramProbs[pair.Key][i])
+                if (Math.Abs(otherRow[i] - pair.Value[i]) > ComparisonEpsilon)
                 {
                     return false;
                 }
@@ -75,51 +77,29 @@ public class TrigramModel : ILanguageModel, INGramModel
             bigramModel = new NGramModel(VocabSize);
         }
 
-        _trigramProbs.Clear();
-        for (int i = 0; i < VocabSize; i++)
-        {
-            for (int j = 0; j < VocabSize; j++)
-            {
-                _trigramProbs.Add((i, j), new float[VocabSize]);
-            }
-        }
+        _trigramProbs = CreateEmptyTrigramDictionary(VocabSize);
     }
 
     public void Train(ReadOnlySpan<int> tokens)
     {
         ResetTrainingResults();
+        bigramModel.Train(tokens);
 
-        try
-        {
-            bigramModel.Train(tokens);
-        }
-        catch (ArgumentOutOfRangeException ex)
-        {
-            throw;
-        }
 
         if (tokens.Length < 3)
         {
             return;
         }
 
-        try
-        {
-            counts.CountTrigrams(_trigramProbs, tokens);
-        }
-        catch (ArgumentOutOfRangeException ex)
-        {
-            throw;
-        }
-        
+        counts.CountTrigrams(_trigramProbs, tokens);
 
         foreach (var bigram in _trigramProbs)
         {
             int countForPair = counts.GetTrigramPrevsTotal(_trigramProbs, bigram.Key);
 
-            for (int j = 0; j < bigram.Value.Length; j++)
+            if (countForPair != 0)
             {
-                if (countForPair != 0)
+                for (int j = 0; j < bigram.Value.Length; j++)
                 {
                     bigram.Value[j] = bigram.Value[j] / countForPair;
                 }
@@ -134,8 +114,8 @@ public class TrigramModel : ILanguageModel, INGramModel
             return bigramModel.NextTokenScores(context);
         }
 
-        int lastToken = context[context.Length - 1] - 1;
-        int beforeLastToken = context[context.Length - 2] - 1;
+        int lastToken = context[context.Length - 1];
+        int beforeLastToken = context[context.Length - 2];
 
         if (lastToken < 0 || lastToken >= VocabSize
             || beforeLastToken < 0 || beforeLastToken >= VocabSize)
@@ -143,20 +123,22 @@ public class TrigramModel : ILanguageModel, INGramModel
             return bigramModel.NextTokenScores(context);
         }
 
-        bool isNull = true;
+        bool hasAnyObservedTransition = false;
 
         for (int i = 0; i < VocabSize; i++)
         {
             if (_trigramProbs[(beforeLastToken, lastToken)][i] != 0)
             {
-                isNull = false;
+                hasAnyObservedTransition = true;
                 break;
             }
         }
 
-        if (!isNull)
+        if (hasAnyObservedTransition)
         {
-            return (float[])_trigramProbs[(beforeLastToken, lastToken)].Clone();
+            float[] result = (float[])_trigramProbs[(beforeLastToken, lastToken)].Clone();
+            result[0] = 0f;
+            return result;
         }
 
         return bigramModel.NextTokenScores(context);
@@ -172,5 +154,20 @@ public class TrigramModel : ILanguageModel, INGramModel
     {
         NGramPayloadMapper mapper = new NGramPayloadMapper();
         return mapper.FromTrigramToJson(this);
+    }
+
+    private static Dictionary<(int, int), float[]> CreateEmptyTrigramDictionary(int vocabSize)
+    {
+        Dictionary<(int, int), float[]> result = new Dictionary<(int, int), float[]>();
+
+        for (int i = 0; i < vocabSize; i++)
+        {
+            for (int j = 0; j < vocabSize; j++)
+            {
+                result[(i, j)] = new float[vocabSize];
+            }
+        }
+
+        return result;
     }
 }
